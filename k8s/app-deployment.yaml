@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helpdesk
+  namespace: week13
+spec:
+  # TODO 1: Change this to 2 replicas before applying.
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helpdesk
+  template:
+    metadata:
+      labels:
+        app: helpdesk
+    spec:
+      containers:
+        - name: helpdesk
+          image: week13-helpdesk:v1.0.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: helpdesk-config
+            - secretRef:
+                name: helpdesk-secret
+          # TODO 2: Add livenessProbe for GET /healthz on port 8080.
+          # TODO 3: Add readinessProbe for GET /ready on port 8080.
+          # TODO 4: Add requests: cpu 100m, memory 64Mi; limits: cpu 500m, memory 256Mi.

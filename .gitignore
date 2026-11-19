@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+.DS_Store
+# Never commit local secret manifests containing real values
+k8s/secret.yaml

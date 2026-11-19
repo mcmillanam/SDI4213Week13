@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }}</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 900px; margin: 35px auto; padding: 0 18px; }
+    h1 { margin-bottom: 5px; }
+    .subtitle { color: #555; margin-bottom: 24px; }
+    form { padding: 16px; background: #f4f4f4; border-radius: 8px; margin-bottom: 24px; }
+    input, select, button { padding: 8px; margin-right: 8px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+    .error { background: #ffe8e8; padding: 12px; border: 1px solid #cc7777; }
+    .pill { padding: 3px 8px; border-radius: 10px; background: #eee; }
+  </style>
+</head>
+<body>
+  <h1>{{ title }}</h1>
+  <div class="subtitle">Week 13: Kubernetes orchestration, scaling, probes, persistence, and self-healing</div>
+  {% if error %}<div class="error"><strong>Database error:</strong> {{ error }}</div>{% endif %}
+  <form method="post" action="/tickets">
+    <label>Ticket:</label>
+    <input name="title" placeholder="e.g., Projector not working" size="38" required>
+    <label>Priority:</label>
+    <select name="priority">
+      <option>Low</option><option selected>Medium</option><option>High</option>
+    </select>
+    <button type="submit">Create Ticket</button>
+  </form>
+  <h2>Current Tickets</h2>
+  <table>
+    <thead><tr><th>ID</th><th>Title</th><th>Priority</th><th>Status</th></tr></thead>
+    <tbody>
+    {% for t in tickets %}
+      <tr><td>{{ t[0] }}</td><td>{{ t[1] }}</td><td><span class="pill">{{ t[2] }}</span></td><td>{{ t[3] }}</td></tr>
+    {% else %}
+      <tr><td colspan="4">No tickets yet.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
